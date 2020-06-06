@@ -1,21 +1,23 @@
 const express=require('express');
 const mongoose=require('mongoose');
-const bodyparser=require('body-parser');
+
 const app=express();
 const path=require('path')
-const items=require('./routes/api/Items');
+const config=require('config')
 
 
 
-app.use(bodyparser.json());
-const db=require('./config/keys').mongoURI;
+app.use(express.json());
+const db=config.get('mongoURI');
 
 mongoose.connect(db,{useNewUrlParser:true,
     useCreateIndex: true})
 .then(()=> console.log('Mongodb connected'))
 .catch(err=>console.log(err));
 
-app.use('/api/items',items);
+app.use('/api/items',require('./routes/api/Items'));
+app.use('/api/users',require('./routes/api/users'));
+app.use('/api/auth',require('./routes/api/auth'));
 
 if(process.env.NODE_ENV === 'production')
 {

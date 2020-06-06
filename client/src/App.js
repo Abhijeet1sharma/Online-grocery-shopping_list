@@ -7,9 +7,14 @@ import {provider, Provider} from 'react-redux';
 import store from './Store';
 import ItemModal from './Components/ItemModel';
 import {Container} from 'reactstrap';
+import {loadUser} from './actions/authActions'
 
 
  class App extends Component {
+   componentDidMount()
+   {
+     store.dispatch(loadUser());
+   }
   render() {
     return (
       <Provider store={store}>

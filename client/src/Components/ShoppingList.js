@@ -4,9 +4,17 @@ import { CSSTransition,TransitionGroup} from 'react-transition-group';
 import {v1 as uuid} from 'uuid';
 import{connect } from 'react-redux';
 import {getItems,deleteItem} from '../actions/itemActions';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
+
 
 class ShoppingList extends Component{
+
+    static propTypes={
+        getItems:PropTypes.func.isRequired,
+        item:PropTypes.object.isRequired,
+        isAuthenticated:PropTypes.bool
+    }
+    
 
     componentDidMount(){
         this.props.getItems();
@@ -24,17 +32,21 @@ class ShoppingList extends Component{
                
            
             <ListGroup>
+               
                 <TransitionGroup className="shopping-list">
                     {items.map(({_id,name})=>(
                         <CSSTransition key={_id} timeout={500} classNames="fade">
-                            <ListGroup>
+                            <ListGroupItem>
+                          
                                 {name}
-                                <Button className="remove" color="danger"  
-                                onClick={this.onDeleteClick.bind(this,_id)}>
-                                    &times;
-                                </Button>
+                                {this.props.isAuthenticated ?
+                                 <Button className="remove" color="danger"  size="sm" 
+                                 onClick={this.onDeleteClick.bind(this,_id)}>
+                                &times;
+                                 </Button>:null}
                                
-                            </ListGroup>
+                               
+                            </ListGroupItem>
                         </CSSTransition>
 
                     ))}
@@ -45,13 +57,10 @@ class ShoppingList extends Component{
     }
 }
 
-ShoppingList.propTypes={
-    getItems:propTypes.func.isRequired,
-    item:propTypes.object.isRequired
-}
 
 const mapStateToProps=(state)=>({
-    item:state.item
+    item:state.item,
+    isAuthenticated:state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps,
