@@ -1,4 +1,5 @@
 {
-    "mongoURI":"mongodb://127.0.0.1:27017/shoplist-api",
-    "jwtSecret":"sl_myJwtSecret"
+        "mongoURI":"mongodb://127.0.0.1:27017/shoplist-api",
+        "jwtSecret":"sl_myJwtSecret"
 }
+    

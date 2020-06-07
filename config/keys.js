@@ -1,4 +1,4 @@
 module.exports={
-    mongoURI:'mongodb://127.0.0.1:27017/shoplist-api'
+    mongoURI:'mongodb+srv://Abhijeet:abhijeet99@cluster0-n9zar.mongodb.net/shoplist-api?retryWrites=true&w=majority'
     
 }
